@@ -1,7 +1,9 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from profile_api.serializers import HelloSerializer
+from rest_framework import viewsets
+from profile_api.serializers import HelloSerializer,UserProfileSerializer
+from profile_api import models
 
 
 class HelloWorldApiView(APIView):
@@ -21,3 +23,10 @@ class HelloWorldApiView(APIView):
         else:
             return Response({'error': serializer.errors, 'error_message': serializer.error_messages},
                             status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserProfileViewSet(viewsets.ModelViewSet):
+    serializer_class = UserProfileSerializer
+    queryset = models.UserProfile.objects.all()
+
+
